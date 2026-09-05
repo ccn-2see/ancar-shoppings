@@ -31,4 +31,4 @@ for(const [name,ok] of [
  ['texto abaixo da meta verde',below.deviationToneClass.includes('accent-green')],
 ]){console.log(`${ok?'PASS':'FAIL'} — ${name}`);if(!ok)fail++;}
 if(fail) process.exit(1);
-console.log('VALIDAÇÃO PERFORMANCE DOS CARDS V5.8.2: PASS');
+console.log('VALIDAÇÃO PERFORMANCE DOS CARDS V5.8.3: PASS');

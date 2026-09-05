@@ -26,7 +26,7 @@ export function ShoppingCard({ shopping }: { shopping: Shopping }) {
         <div className="min-w-0"><div className="text-base font-semibold tracking-wide text-foreground">{shopping.code}</div><div className="mt-0.5 flex min-w-0 items-center gap-1 text-[10px] text-muted-foreground"><MapPin className="h-3 w-3 shrink-0"/><span className="truncate">{shopping.city}/{shopping.stateCode}</span></div></div>
       </div>
       <div className="mt-3 grid grid-cols-3 divide-x divide-border/55 text-center">
-        <Metric value={hideLiveEfficiency ? "—" : formatKwTr(shopping.efficiencyKWTR)} unit="kW/TR" label="Eficiência"/>
+        <Metric value={hideLiveEfficiency ? "—" : formatKwTr(shopping.efficiencyKWTR)} unit="kW/TR" label="Eficiência" className={performance.deviationToneClass}/>
         <Metric value={performance.status === "offline" ? performance.label : performance.deviationText} unit="vs meta" label="Desempenho" className={performance.deviationToneClass}/>
         <Metric value={formatBRL2(shopping.costAboveTargetTodayBrl)} unit="hoje" label="Custo acima"/>
       </div>
