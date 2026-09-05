@@ -1,0 +1,14 @@
+import fs from 'node:fs';
+const read = (p) => fs.readFileSync(p, 'utf8');
+let fail = 0;
+const check = (label, ok) => { console.log(`${ok ? 'PASS' : 'FAIL'} — ${label}`); if (!ok) fail++; };
+const root = read('src/routes/__root.tsx');
+const overview = read('src/routes/index.tsx');
+check('Error Boundary usa período de graça antes da mensagem fatal', root.includes('setShowPersistentError(true), 1600'));
+check('período de graça mostra carregamento neutro', root.includes('Carregando painel...'));
+check('erro persistente continua disponível após o grace period', root.includes('Não foi possível carregar esta página'));
+check('Visão Geral usa primeiro shopping como fallback transitório', overview.includes('?? items[0] ?? null'));
+check('estado transitório de seleção usa LoadingBlock', overview.includes('portfolio.shoppings.length > 0 && !error') && overview.includes('return <LoadingBlock h={880} />'));
+check('erro real do portfólio continua visível', overview.includes('Não foi possível consultar o portfólio ANCAR.'));
+if (fail) process.exit(1);
+console.log('\n6 PASS / 0 FAIL — resiliência visual de carga V5.8.2');

@@ -7,7 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportApplicationError } from "../lib/error-reporting";
@@ -39,9 +39,29 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
+  const [showPersistentError, setShowPersistentError] = useState(false);
+
   useEffect(() => {
     reportApplicationError(error, { boundary: "tanstack_root_error_component" });
+    // Erros transitórios de hidratação/navegação podem se resolver no próprio ciclo
+    // do TanStack Router. Evita piscar uma mensagem fatal antes da recuperação.
+    const timer = window.setTimeout(() => setShowPersistentError(true), 1600);
+    return () => window.clearTimeout(timer);
   }, [error]);
+
+  if (!showPersistentError) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background px-4">
+        <div className="flex flex-col items-center gap-3 text-center">
+          <div
+            className="h-7 w-7 animate-spin rounded-full border-2 border-muted-foreground/25 border-t-primary"
+            aria-hidden="true"
+          />
+          <p className="text-sm text-muted-foreground">Carregando painel...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -55,6 +75,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {
+              setShowPersistentError(false);
               router.invalidate();
               reset();
             }}
@@ -80,7 +101,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "ANCAR | Monitoramento CAG" },
-      { name: "ancar-ui-version", content: "5.8.0" },
+      { name: "ancar-ui-version", content: "5.8.2" },
       {
         name: "description",
         content:
@@ -95,16 +116,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
-      { rel: "stylesheet", href: `${appCss}?ancar-ui=5.8.0` },
-      { rel: "stylesheet", href: "/login-v57.css?v=5.8.0" },
+      { rel: "stylesheet", href: `${appCss}?ancar-ui=5.8.2` },
+      { rel: "stylesheet", href: "/login-v57.css?v=5.8.2" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.png?v=5.8.0", type: "image/png" },
-      { rel: "shortcut icon", href: "/favicon.ico?v=5.8.0" },
+      { rel: "icon", href: "/favicon.png?v=5.8.2", type: "image/png" },
+      { rel: "shortcut icon", href: "/favicon.ico?v=5.8.2" },
     ],
   }),
   shellComponent: RootShell,

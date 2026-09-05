@@ -102,7 +102,7 @@ export function PortfolioHealthCard({ metrics }: { metrics: PortfolioHealthMetri
       </div>
 
       <div className="portfolio-health-footer mt-auto rounded-lg border border-border/55 bg-muted/15 px-2.5 py-1.5 text-center text-[9px] leading-tight text-muted-foreground">
-        Atualização automática a cada 3 minutos
+        Atualização automática a cada 5 minutos
       </div>
     </section>
   );

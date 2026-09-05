@@ -12,18 +12,18 @@ const dotClass: Record<ShoppingStatus, string> = {
 
 const badgeClass: Record<ShoppingStatus, string> = {
   otimo: "bg-[var(--accent-green)]/15 text-[var(--accent-green)] border-[var(--accent-green)]/30",
-  bom: "bg-[var(--accent-cyan)]/15 text-[var(--accent-cyan)] border-[var(--accent-cyan)]/30",
+  bom: "bg-[var(--accent-green)]/12 text-[var(--accent-green)] border-[var(--accent-green)]/28",
   atencao:
-    "bg-[var(--accent-yellow)]/15 text-[var(--accent-yellow)] border-[var(--accent-yellow)]/30",
+    "bg-[var(--accent-orange)]/15 text-[var(--accent-orange)] border-[var(--accent-orange)]/30",
   critico: "bg-[var(--accent-red)]/15 text-[var(--accent-red)] border-[var(--accent-red)]/30",
   offline: "bg-muted/40 text-muted-foreground border-border",
 };
 
-export function StatusDot({ status, className }: { status: ShoppingStatus; className?: string }) {
-  return <span className={cn("inline-block h-2 w-2 rounded-full", dotClass[status], className)} />;
+export function StatusDot({ status, className, color }: { status: ShoppingStatus; className?: string; color?: string }) {
+  return <span className={cn("inline-block h-2 w-2 rounded-full", color ? undefined : dotClass[status], className)} style={color ? { backgroundColor: color } : undefined} />;
 }
 
-export function StatusBadge({ status }: { status: ShoppingStatus }) {
+export function StatusBadge({ status, label, dotColor }: { status: ShoppingStatus; label?: string; dotColor?: string }) {
   return (
     <span
       className={cn(
@@ -31,7 +31,7 @@ export function StatusBadge({ status }: { status: ShoppingStatus }) {
         badgeClass[status],
       )}
     >
-      <StatusDot status={status} /> {statusLabel(status)}
+      <StatusDot status={status} color={dotColor} /> {label ?? statusLabel(status)}
     </span>
   );
 }

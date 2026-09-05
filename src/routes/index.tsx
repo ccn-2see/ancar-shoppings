@@ -269,7 +269,7 @@ function OverviewPage() {
     historyQueryRef.current = queryKey;
 
     // Só mostra loading quando o usuário realmente troca shopping/período e ainda
-    // não existe um conjunto compatível em memória. O tick de 3 minutos é 100% background.
+    // não existe um conjunto compatível em memória. O tick de 5 minutos é 100% background.
     if (queryChanged && !(shoppingData?.shopping?.code === selectedShoppingCode && shoppingData.period === historyPeriod)) {
       setLoadingHistory(true);
     }
@@ -295,10 +295,13 @@ function OverviewPage() {
     };
   }, [selectedShoppingCode, historyPeriod, tick]);
 
-  const selectedShopping = useMemo(
-    () => portfolio?.shoppings.find((item) => item.code === selectedShoppingCode) ?? null,
-    [portfolio, selectedShoppingCode],
-  );
+  const selectedShopping = useMemo(() => {
+    const items = portfolio?.shoppings ?? [];
+    // Durante a primeira hidratação, o portfólio pode chegar um render antes do
+    // código selecionado ser propagado pelo contexto. Usa a primeira unidade como
+    // fallback visual e evita exibir um falso estado de indisponibilidade.
+    return items.find((item) => item.code === selectedShoppingCode) ?? items[0] ?? null;
+  }, [portfolio, selectedShoppingCode]);
 
   const portfolioCards = useMemo<Shopping[]>(
     () => (portfolio?.shoppings ?? []).map(mapLiveShoppingToLegacy),
@@ -333,7 +336,22 @@ function OverviewPage() {
     return <LoadingBlock h={880} />;
   }
 
-  if (!portfolio || !selectedShopping) {
+  // Só apresenta indisponibilidade depois que a carga inicial terminou e existe
+  // uma falha real (ou o portfólio veio efetivamente vazio). Estados transitórios
+  // de seleção continuam como carregamento silencioso.
+  if (!portfolio) {
+    return (
+      <section className="panel p-8 text-center">
+        <h1 className="text-lg font-semibold">Visão Geral indisponível</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {error ?? "Não foi possível consultar o portfólio ANCAR."}
+        </p>
+      </section>
+    );
+  }
+
+  if (!selectedShopping) {
+    if (portfolio.shoppings.length > 0 && !error) return <LoadingBlock h={880} />;
     return (
       <section className="panel p-8 text-center">
         <h1 className="text-lg font-semibold">Visão Geral indisponível</h1>
@@ -389,7 +407,7 @@ function OverviewPage() {
   const portfolioHealth = makePortfolioHealth(portfolio.shoppings);
 
   return (
-    <><style data-ancar-overview-layout="5.2">{OVERVIEW_LAYOUT_V45_CSS}</style><div className="overview-dashboard space-y-4" data-ancar-ui-version="5.8.0">
+    <><style data-ancar-overview-layout="5.2">{OVERVIEW_LAYOUT_V45_CSS}</style><div className="overview-dashboard space-y-4" data-ancar-ui-version="5.8.2">
       {error && (
         <div className="overview-error rounded-lg border border-[color-mix(in_oklab,var(--accent-yellow)_38%,transparent)] bg-[color-mix(in_oklab,var(--accent-yellow)_8%,transparent)] px-3 py-2 text-xs text-[var(--accent-yellow)]">
           {error}

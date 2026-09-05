@@ -1,0 +1,408 @@
+[
+  {
+    "viewport": "1920x1080",
+    "ok": true,
+    "bodyW": 1920,
+    "bodyH": 1080,
+    "main": {
+      "x": 0,
+      "y": 0,
+      "width": 1920,
+      "height": 1080,
+      "top": 0,
+      "right": 1920,
+      "bottom": 1080,
+      "left": 0
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 1164.578125,
+      "height": 1080,
+      "top": 0,
+      "right": 1164.578125,
+      "bottom": 1080,
+      "left": 0
+    },
+    "access": {
+      "x": 1164.578125,
+      "y": 0,
+      "width": 755.421875,
+      "height": 1080,
+      "top": 0,
+      "right": 1920,
+      "bottom": 1080,
+      "left": 1164.578125
+    },
+    "card": {
+      "x": 1297.28125,
+      "y": 246.40625,
+      "width": 490,
+      "height": 560.171875,
+      "top": 246.40625,
+      "right": 1787.28125,
+      "bottom": 806.578125,
+      "left": 1297.28125
+    },
+    "shell": {
+      "x": 1297.28125,
+      "y": 246.40625,
+      "width": 490,
+      "height": 587.171875,
+      "top": 246.40625,
+      "right": 1787.28125,
+      "bottom": 833.578125,
+      "left": 1297.28125
+    },
+    "heroDisplay": "block",
+    "insights": 0
+  },
+  {
+    "viewport": "1792x862",
+    "ok": true,
+    "bodyW": 1792,
+    "bodyH": 862,
+    "main": {
+      "x": 0,
+      "y": 0,
+      "width": 1792,
+      "height": 862,
+      "top": 0,
+      "right": 1792,
+      "bottom": 862,
+      "left": 0
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 1086.9375,
+      "height": 862,
+      "top": 0,
+      "right": 1086.9375,
+      "bottom": 862,
+      "left": 0
+    },
+    "access": {
+      "x": 1086.9375,
+      "y": 0,
+      "width": 705.046875,
+      "height": 862,
+      "top": 0,
+      "right": 1791.984375,
+      "bottom": 862,
+      "left": 1086.9375
+    },
+    "card": {
+      "x": 1194.453125,
+      "y": 137.40625,
+      "width": 490,
+      "height": 560.171875,
+      "top": 137.40625,
+      "right": 1684.453125,
+      "bottom": 697.578125,
+      "left": 1194.453125
+    },
+    "shell": {
+      "x": 1194.453125,
+      "y": 137.40625,
+      "width": 490,
+      "height": 587.171875,
+      "top": 137.40625,
+      "right": 1684.453125,
+      "bottom": 724.578125,
+      "left": 1194.453125
+    },
+    "heroDisplay": "block",
+    "insights": 0
+  },
+  {
+    "viewport": "1524x722",
+    "ok": true,
+    "bodyW": 1524,
+    "bodyH": 722,
+    "main": {
+      "x": 0,
+      "y": 0,
+      "width": 1524,
+      "height": 722,
+      "top": 0,
+      "right": 1524,
+      "bottom": 722,
+      "left": 0
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 924.390625,
+      "height": 722,
+      "top": 0,
+      "right": 924.390625,
+      "bottom": 722,
+      "left": 0
+    },
+    "access": {
+      "x": 924.390625,
+      "y": 0,
+      "width": 599.59375,
+      "height": 722,
+      "top": 0,
+      "right": 1523.984375,
+      "bottom": 722,
+      "left": 924.390625
+    },
+    "card": {
+      "x": 991.4375,
+      "y": 115.265625,
+      "width": 465.5,
+      "height": 472.46875,
+      "top": 115.265625,
+      "right": 1456.9375,
+      "bottom": 587.734375,
+      "left": 991.4375
+    },
+    "shell": {
+      "x": 991.4375,
+      "y": 115.265625,
+      "width": 465.5,
+      "height": 491.46875,
+      "top": 115.265625,
+      "right": 1456.9375,
+      "bottom": 606.734375,
+      "left": 991.4375
+    },
+    "heroDisplay": "block",
+    "insights": 0
+  },
+  {
+    "viewport": "1366x768",
+    "ok": true,
+    "bodyW": 1366,
+    "bodyH": 768,
+    "main": {
+      "x": 0,
+      "y": 0,
+      "width": 1366,
+      "height": 768,
+      "top": 0,
+      "right": 1366,
+      "bottom": 768,
+      "left": 0
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 828.546875,
+      "height": 768,
+      "top": 0,
+      "right": 828.546875,
+      "bottom": 768,
+      "left": 0
+    },
+    "access": {
+      "x": 828.546875,
+      "y": 0,
+      "width": 537.453125,
+      "height": 768,
+      "top": 0,
+      "right": 1366,
+      "bottom": 768,
+      "left": 828.546875
+    },
+    "card": {
+      "x": 888.640625,
+      "y": 138.265625,
+      "width": 417.265625,
+      "height": 472.46875,
+      "top": 138.265625,
+      "right": 1305.90625,
+      "bottom": 610.734375,
+      "left": 888.640625
+    },
+    "shell": {
+      "x": 888.640625,
+      "y": 138.265625,
+      "width": 417.265625,
+      "height": 491.46875,
+      "top": 138.265625,
+      "right": 1305.90625,
+      "bottom": 629.734375,
+      "left": 888.640625
+    },
+    "heroDisplay": "block",
+    "insights": 0
+  },
+  {
+    "viewport": "1024x650",
+    "ok": true,
+    "bodyW": 1024,
+    "bodyH": 650,
+    "main": {
+      "x": 0,
+      "y": 0,
+      "width": 1024,
+      "height": 650,
+      "top": 0,
+      "right": 1024,
+      "bottom": 650,
+      "left": 0
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 533.328125,
+      "height": 650,
+      "top": 0,
+      "right": 533.328125,
+      "bottom": 650,
+      "left": 0
+    },
+    "access": {
+      "x": 533.328125,
+      "y": 0,
+      "width": 490.65625,
+      "height": 650,
+      "top": 0,
+      "right": 1023.984375,
+      "bottom": 650,
+      "left": 533.328125
+    },
+    "card": {
+      "x": 578.375,
+      "y": 79.265625,
+      "width": 400.5625,
+      "height": 472.46875,
+      "top": 79.265625,
+      "right": 978.9375,
+      "bottom": 551.734375,
+      "left": 578.375
+    },
+    "shell": {
+      "x": 578.375,
+      "y": 79.265625,
+      "width": 400.5625,
+      "height": 491.46875,
+      "top": 79.265625,
+      "right": 978.9375,
+      "bottom": 570.734375,
+      "left": 578.375
+    },
+    "heroDisplay": "block",
+    "insights": 0
+  },
+  {
+    "viewport": "900x700",
+    "ok": true,
+    "bodyW": 900,
+    "bodyH": 700,
+    "main": {
+      "x": 0,
+      "y": 0,
+      "width": 900,
+      "height": 700,
+      "top": 0,
+      "right": 900,
+      "bottom": 700,
+      "left": 0
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "left": 0
+    },
+    "access": {
+      "x": 0,
+      "y": 0,
+      "width": 900,
+      "height": 700,
+      "top": 0,
+      "right": 900,
+      "bottom": 700,
+      "left": 0
+    },
+    "card": {
+      "x": 200,
+      "y": 56.40625,
+      "width": 500,
+      "height": 560.171875,
+      "top": 56.40625,
+      "right": 700,
+      "bottom": 616.578125,
+      "left": 200
+    },
+    "shell": {
+      "x": 200,
+      "y": 56.40625,
+      "width": 500,
+      "height": 587.171875,
+      "top": 56.40625,
+      "right": 700,
+      "bottom": 643.578125,
+      "left": 200
+    },
+    "heroDisplay": "none",
+    "insights": 0
+  },
+  {
+    "viewport": "390x844",
+    "ok": true,
+    "bodyW": 390,
+    "bodyH": 844,
+    "main": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 844,
+      "top": 0,
+      "right": 390,
+      "bottom": 844,
+      "left": 0
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "left": 0
+    },
+    "access": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 844,
+      "top": 0,
+      "right": 390,
+      "bottom": 844,
+      "left": 0
+    },
+    "card": {
+      "x": 14,
+      "y": 149.734375,
+      "width": 362,
+      "height": 517.53125,
+      "top": 149.734375,
+      "right": 376,
+      "bottom": 667.265625,
+      "left": 14
+    },
+    "shell": {
+      "x": 14,
+      "y": 149.734375,
+      "width": 362,
+      "height": 544.53125,
+      "top": 149.734375,
+      "right": 376,
+      "bottom": 694.265625,
+      "left": 14
+    },
+    "heroDisplay": "none",
+    "insights": 0
+  }
+]
