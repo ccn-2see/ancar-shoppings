@@ -16,4 +16,4 @@ assert(shops.includes('className="metric-value text-right" style={{color:perform
 assert(shops.includes('className="text-right text-xs font-semibold" style={{color:performance.deviationColor}}'), 'Tabela: vs meta não aplica cor inline');
 assert(shops.includes('<TableCell className="metric-value text-right">{formatBRL2(shopping.costAboveTargetTodayBrl)}</TableCell>'), 'Tabela: custo deve permanecer neutro');
 assert(!card.includes('leading-none text-foreground ${className}'), 'Card: conflito text-foreground antigo ainda presente');
-console.log('VALIDAÇÃO TONS VISÍVEIS DOS 2 PRIMEIROS INDICADORES V5.8.4: 10/10 PASS');
+console.log('VALIDAÇÃO TONS VISÍVEIS DOS 2 PRIMEIROS INDICADORES V5.8.5: 10/10 PASS');

@@ -152,7 +152,7 @@ function LoginPage() {
 
           <footer className="login-v56-footer">
             <span>Ambiente protegido para usuários autorizados</span>
-            <b>Versão 5.8.4</b>
+            <b>Versão 5.8.6</b>
           </footer>
         </div>
       </section>

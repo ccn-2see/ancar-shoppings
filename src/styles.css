@@ -1450,16 +1450,34 @@ html.light body {
   }
 }
 
-/* Alertas / Energia e Emissões: conteúdo principal rola dentro do painel. */
+/* Alertas / Energia & Carbono: workspace compacto sem achatar grids internos. */
 @media (min-width: 1024px) and (min-height: 650px) {
-  .compact-alerts-page > .grid,
-  .compact-esg-page > .grid {
+  .compact-alerts-page > .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     gap: 0.5rem !important;
   }
 
-  .compact-alerts-page > .compact-fill-panel,
-  .compact-esg-page > .compact-fill-panel {
+  .compact-esg-page > .esg-kpi-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0.5rem !important;
+  }
+
+  .compact-esg-page .esg-dashboard-grid {
+    grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.62fr) minmax(300px, 0.62fr) !important;
+    gap: 0.65rem !important;
+  }
+
+  .compact-esg-page .esg-equivalence-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0.5rem !important;
+  }
+
+  .compact-alerts-page > .compact-fill-panel {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .compact-esg-page > .esg-workspace {
     flex: 1 1 auto;
     min-height: 0;
   }

@@ -31,4 +31,4 @@ for(const [name,ok] of [
  ['texto abaixo da meta verde',below.deviationColor==='var(--accent-green)'],
 ]){console.log(`${ok?'PASS':'FAIL'} — ${name}`);if(!ok)fail++;}
 if(fail) process.exit(1);
-console.log('VALIDAÇÃO PERFORMANCE DOS CARDS V5.8.4: PASS');
+console.log('VALIDAÇÃO PERFORMANCE DOS CARDS V5.8.5: PASS');
