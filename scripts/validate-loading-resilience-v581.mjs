@@ -11,4 +11,4 @@ check('Visão Geral usa primeiro shopping como fallback transitório', overview.
 check('estado transitório de seleção usa LoadingBlock', overview.includes('portfolio.shoppings.length > 0 && !error') && overview.includes('return <LoadingBlock h={880} />'));
 check('erro real do portfólio continua visível', overview.includes('Não foi possível consultar o portfólio ANCAR.'));
 if (fail) process.exit(1);
-console.log('\n6 PASS / 0 FAIL — resiliência visual de carga V5.8.3');
+console.log('\n6 PASS / 0 FAIL — resiliência visual de carga V5.8.4');

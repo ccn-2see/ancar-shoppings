@@ -26,8 +26,8 @@ export function ShoppingCard({ shopping }: { shopping: Shopping }) {
         <div className="min-w-0"><div className="text-base font-semibold tracking-wide text-foreground">{shopping.code}</div><div className="mt-0.5 flex min-w-0 items-center gap-1 text-[10px] text-muted-foreground"><MapPin className="h-3 w-3 shrink-0"/><span className="truncate">{shopping.city}/{shopping.stateCode}</span></div></div>
       </div>
       <div className="mt-3 grid grid-cols-3 divide-x divide-border/55 text-center">
-        <Metric value={hideLiveEfficiency ? "—" : formatKwTr(shopping.efficiencyKWTR)} unit="kW/TR" label="Eficiência" className={performance.deviationToneClass}/>
-        <Metric value={performance.status === "offline" ? performance.label : performance.deviationText} unit="vs meta" label="Desempenho" className={performance.deviationToneClass}/>
+        <Metric value={hideLiveEfficiency ? "—" : formatKwTr(shopping.efficiencyKWTR)} unit="kW/TR" label="Eficiência" color={performance.deviationColor}/>
+        <Metric value={performance.status === "offline" ? performance.label : performance.deviationText} unit="vs meta" label="Desempenho" color={performance.deviationColor}/>
         <Metric value={formatBRL2(shopping.costAboveTargetTodayBrl)} unit="hoje" label="Custo acima"/>
       </div>
       <div className="mt-auto rounded-md border px-2 py-1 text-center text-[10px] font-semibold" style={{ color: theme.color, background: theme.background, borderColor: theme.border }}>{performance.label}</div>
@@ -35,7 +35,7 @@ export function ShoppingCard({ shopping }: { shopping: Shopping }) {
   );
 }
 
-function Metric({ value, unit, label, className="" }: { value: string; unit: string; label: string; className?: string }) {
+function Metric({ value, unit, label, color }: { value: string; unit: string; label: string; color?: string }) {
   const compact = value.length > 10;
-  return <div className="min-w-0 px-1 py-1"><div className={`metric-value truncate ${compact?"text-[11px]":"text-[14px]"} leading-none text-foreground ${className}`} title={value}>{value}</div><div className="mt-1 text-[8px] uppercase tracking-[0.06em] text-muted-foreground">{unit}</div><div className="mt-0.5 text-[8px] text-muted-foreground/70">{label}</div></div>;
+  return <div className="min-w-0 px-1 py-1"><div className={`metric-value truncate ${compact?"text-[11px]":"text-[14px]"} leading-none`} style={{ color: color ?? "var(--foreground)" }} title={value}>{value}</div><div className="mt-1 text-[8px] uppercase tracking-[0.06em] text-muted-foreground">{unit}</div><div className="mt-0.5 text-[8px] text-muted-foreground/70">{label}</div></div>;
 }

@@ -27,8 +27,8 @@ for(const [name,patch,label] of [
 const above=getShoppingPerformanceState({...base,efficiencyKWTR:1.03});
 const below=getShoppingPerformanceState({...base,efficiencyKWTR:.97});
 for(const [name,ok] of [
- ['texto acima da meta vermelho',above.deviationToneClass.includes('accent-red')],
- ['texto abaixo da meta verde',below.deviationToneClass.includes('accent-green')],
+ ['texto acima da meta vermelho',above.deviationColor==='var(--accent-red)'],
+ ['texto abaixo da meta verde',below.deviationColor==='var(--accent-green)'],
 ]){console.log(`${ok?'PASS':'FAIL'} — ${name}`);if(!ok)fail++;}
 if(fail) process.exit(1);
-console.log('VALIDAÇÃO PERFORMANCE DOS CARDS V5.8.3: PASS');
+console.log('VALIDAÇÃO PERFORMANCE DOS CARDS V5.8.4: PASS');

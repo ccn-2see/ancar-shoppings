@@ -13,7 +13,7 @@ export interface ShoppingPerformanceState {
   label: string;
   deviationPct: number | null;
   deviationText: string;
-  deviationToneClass: string;
+  deviationColor: string;
   dotTone: ShoppingIndicatorTone;
   dotColor: string;
   unavailableReason: "offline" | "stopped" | "missing_measurement" | "missing_target" | null;
@@ -36,7 +36,7 @@ function unavailable(label: string, reason: ShoppingPerformanceState["unavailabl
     label,
     deviationPct: null,
     deviationText: label,
-    deviationToneClass: "text-muted-foreground",
+    deviationColor: "var(--muted-foreground)",
     dotTone: "gray",
     dotColor: DOT_COLOR.gray,
     unavailableReason: reason,
@@ -103,7 +103,7 @@ export function getShoppingPerformanceState(shopping: Shopping): ShoppingPerform
     label,
     deviationPct,
     deviationText,
-    deviationToneClass: deviationPct > 0 ? "text-[var(--accent-red)]" : "text-[var(--accent-green)]",
+    deviationColor: deviationPct > 0 ? "var(--accent-red)" : "var(--accent-green)",
     dotTone,
     dotColor: DOT_COLOR[dotTone],
     unavailableReason: null,
