@@ -39,8 +39,9 @@ interface Props {
   unit?: string;
   comparisonValue?: number | null;
   comparisonLabel?: string;
-  comparisonUnit?: "%" | "°C" | "ch";
+  comparisonUnit?: "%" | "°C" | "ch" | "p.p.";
   comparisonTone?: ComparisonTone;
+  comparisonDescription?: string;
   accent?: Accent;
 }
 
@@ -64,6 +65,7 @@ export function KpiCard({
   comparisonLabel = "vs período anterior",
   comparisonUnit = "%",
   comparisonTone = "neutral",
+  comparisonDescription,
   accent = "cyan",
 }: Props) {
   const accentStyle = accentMap[accent];
@@ -72,6 +74,7 @@ export function KpiCard({
   const comparisonAccent = comparison === null
     ? "var(--muted-foreground)"
     : comparisonColor(comparison, comparisonTone, accentStyle.color);
+  const comparisonUnitSuffix = comparisonUnit === "p.p." ? " p.p." : comparisonUnit;
 
   const cardGlowStyle = {
     "--kpi-accent": accentStyle.color,
@@ -115,7 +118,7 @@ export function KpiCard({
 
           <div
             className="mt-1.5 flex min-w-0 items-center gap-1 text-[9px] leading-none 2xl:text-[10px]"
-            title="Comparação entre a média do período selecionado e a média do período imediatamente anterior equivalente."
+            title={comparisonDescription ?? "Comparação consolidada entre o período selecionado e o período anterior equivalente."}
           >
             {comparison === null ? (
               <>
@@ -132,7 +135,7 @@ export function KpiCard({
                   <Minus className="h-3 w-3 shrink-0" strokeWidth={2.2} style={{ color: comparisonAccent }} />
                 )}
                 <span className="shrink-0 font-semibold" style={{ color: comparisonAccent }}>
-                  {comparison > 0 ? "+" : ""}{comparison.toFixed(1).replace(".", ",")}{comparisonUnit}
+                  {comparison > 0 ? "+" : ""}{comparison.toFixed(1).replace(".", ",")}{comparisonUnitSuffix}
                 </span>
                 <span className="truncate text-muted-foreground">{comparisonLabel}</span>
               </>

@@ -87,6 +87,10 @@ function normalizeComparisonWindow(input?: Partial<ComparisonWindowSummary> | nu
     avgAuxKw: asNumber(input?.avgAuxKw),
     avgTemperatureC: asNumber(input?.avgTemperatureC),
     avgActiveChillers: asNumber(input?.avgActiveChillers),
+    coveragePct: asNumber(input?.coveragePct),
+    sampleCount: asNumber(input?.sampleCount),
+    operationalSampleCount: asNumber(input?.operationalSampleCount),
+    efficiencyThermalTrh: asNumber(input?.efficiencyThermalTrh),
   };
 }
 

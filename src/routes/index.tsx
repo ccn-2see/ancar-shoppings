@@ -32,7 +32,7 @@ import { InsightCard } from "@/components/InsightCard";
 import { PortfolioHealthCard } from "@/components/PortfolioHealthCard";
 import { DataUnavailable } from "@/components/DataUnavailable";
 import { formatBRL2, formatKwTr, formatNumber } from "@/utils/format";
-import { absoluteChange, getComparisonLabel, percentageChange, targetDeviationPct } from "@/utils/comparison";
+import { absoluteChange, getComparisonLabel, percentageChange, targetDeviationPct, utilizationChangePp } from "@/utils/comparison";
 import { buildChartHistory, formatHistoryTick, formatHistoryTooltip, getHistoryTimeDomain, historyTickCount } from "@/utils/history";
 
 type RankingMetric = "power" | "production" | "efficiency" | "quality";
@@ -380,12 +380,39 @@ function OverviewPage() {
       ? shoppingData.comparison ?? null
       : null;
   const comparisonLabel = getComparisonLabel(historyPeriod);
-  const kwComparison = percentageChange(comparison?.current.avgKw, comparison?.previous.avgKw);
-  const trComparison = percentageChange(comparison?.current.avgTr, comparison?.previous.avgTr);
-  const kwTrComparison = percentageChange(comparison?.current.avgKwTr, comparison?.previous.avgKwTr);
-  const activeComparison = percentageChange(comparison?.current.avgActiveChillers, comparison?.previous.avgActiveChillers);
-  const auxComparison = percentageChange(comparison?.current.avgAuxKw, comparison?.previous.avgAuxKw);
-  const temperatureComparison = absoluteChange(comparison?.current.avgTemperatureC, comparison?.previous.avgTemperatureC);
+  const minimumCoveragePct = 70;
+  const minimumOperationalSamples = 6;
+  const coverageOk =
+    (comparison?.current.coveragePct ?? 0) >= minimumCoveragePct &&
+    (comparison?.previous.coveragePct ?? 0) >= minimumCoveragePct;
+  const operationBasisOk =
+    coverageOk &&
+    (comparison?.current.operationalSampleCount ?? 0) >= minimumOperationalSamples &&
+    (comparison?.previous.operationalSampleCount ?? 0) >= minimumOperationalSamples;
+
+  const kwComparison = operationBasisOk
+    ? percentageChange(comparison?.current.avgKw, comparison?.previous.avgKw, 5)
+    : null;
+  const trComparison = operationBasisOk
+    ? percentageChange(comparison?.current.avgTr, comparison?.previous.avgTr, 5)
+    : null;
+  const kwTrComparison = operationBasisOk
+    ? percentageChange(comparison?.current.avgKwTr, comparison?.previous.avgKwTr)
+    : null;
+  const activeComparison = coverageOk
+    ? utilizationChangePp(comparison?.current.avgActiveChillers, comparison?.previous.avgActiveChillers, totalChillers)
+    : null;
+  const auxComparison = operationBasisOk
+    ? percentageChange(comparison?.current.avgAuxKw, comparison?.previous.avgAuxKw, 5)
+    : null;
+  const temperatureComparison = coverageOk
+    ? absoluteChange(comparison?.current.avgTemperatureC, comparison?.previous.avgTemperatureC)
+    : null;
+
+  const operatingComparisonLabel = `média em operação · ${comparisonLabel}`;
+  const efficiencyComparisonLabel = `eficiência do período · ${comparisonLabel}`;
+  const utilizationComparisonLabel = `utilização · ${comparisonLabel}`;
+  const averageComparisonLabel = `média · ${comparisonLabel}`;
   const settings = selectedShopping.settings;
   const targetCag = asNumber(settings?.targetKwTr);
   const targetChiller = asNumber(settings?.targetChillerKwTr);
@@ -407,7 +434,7 @@ function OverviewPage() {
   const portfolioHealth = makePortfolioHealth(portfolio.shoppings);
 
   return (
-    <><style data-ancar-overview-layout="5.2">{OVERVIEW_LAYOUT_V45_CSS}</style><div className="overview-dashboard space-y-4" data-ancar-ui-version="5.8.7">
+    <><style data-ancar-overview-layout="5.2">{OVERVIEW_LAYOUT_V45_CSS}</style><div className="overview-dashboard space-y-4" data-ancar-ui-version="5.8.8">
       {error && (
         <div className="overview-error rounded-lg border border-[color-mix(in_oklab,var(--accent-yellow)_38%,transparent)] bg-[color-mix(in_oklab,var(--accent-yellow)_8%,transparent)] px-3 py-2 text-xs text-[var(--accent-yellow)]">
           {error}
@@ -422,7 +449,8 @@ function OverviewPage() {
           unit="kW"
           accent="cyan"
           comparisonValue={kwComparison}
-          comparisonLabel={comparisonLabel}
+          comparisonLabel={operatingComparisonLabel}
+          comparisonDescription="Potência média da CAG somente durante operação normal, comparada ao período anterior equivalente. Exclui desligado, carga/descarga de tanque e valores acima de 1500 kW."
         />
         <KpiCard
           icon={Activity}
@@ -431,7 +459,8 @@ function OverviewPage() {
           unit="TR"
           accent="blue"
           comparisonValue={trComparison}
-          comparisonLabel={comparisonLabel}
+          comparisonLabel={operatingComparisonLabel}
+          comparisonDescription="Produção térmica média válida durante operação normal, comparada ao período anterior equivalente."
         />
         <KpiCard
           icon={Gauge}
@@ -440,8 +469,9 @@ function OverviewPage() {
           unit="kW/TR"
           accent="green"
           comparisonValue={kwTrComparison}
-          comparisonLabel={comparisonLabel}
+          comparisonLabel={efficiencyComparisonLabel}
           comparisonTone="lower-better"
+          comparisonDescription="Eficiência consolidada do período calculada por energia elétrica válida ÷ TRh válido. Exclui carga/descarga do tanque, desligado e kW/TR acima de 4."
         />
         <KpiCard
           icon={Activity}
@@ -449,7 +479,9 @@ function OverviewPage() {
           value={activeChillers === null ? "—" : `${activeChillers} / ${totalChillers}`}
           accent="purple"
           comparisonValue={activeComparison}
-          comparisonLabel={comparisonLabel}
+          comparisonLabel={utilizationComparisonLabel}
+          comparisonUnit="p.p."
+          comparisonDescription="Variação em pontos percentuais da utilização média dos chillers no período selecionado contra o período anterior equivalente."
         />
         <KpiCard
           icon={Fan}
@@ -458,8 +490,8 @@ function OverviewPage() {
           unit="kW"
           accent="yellow"
           comparisonValue={auxComparison}
-          comparisonLabel={comparisonLabel}
-          comparisonTone="lower-better"
+          comparisonLabel={operatingComparisonLabel}
+          comparisonDescription="Potência média dos periféricos somente durante operação normal da CAG, comparada ao período anterior equivalente. Exclui valores acima de 1500 kW."
         />
         <KpiCard
           icon={Thermometer}
@@ -468,8 +500,9 @@ function OverviewPage() {
           unit="°C"
           accent="orange"
           comparisonValue={temperatureComparison}
-          comparisonLabel={comparisonLabel}
+          comparisonLabel={averageComparisonLabel}
           comparisonUnit="°C"
+          comparisonDescription="Diferença absoluta entre a temperatura externa média do período selecionado e a média do período anterior equivalente."
         />
       </div>
 

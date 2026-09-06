@@ -299,6 +299,10 @@ export interface ComparisonWindowSummary {
   avgAuxKw: number | null;
   avgTemperatureC: number | null;
   avgActiveChillers: number | null;
+  coveragePct: number | null;
+  sampleCount: number | null;
+  operationalSampleCount: number | null;
+  efficiencyThermalTrh: number | null;
 }
 
 export interface PeriodComparison {
