@@ -1,7 +1,7 @@
 import type { HistoryPeriod } from "@/types";
 
 export function getComparisonLabel(period: HistoryPeriod) {
-  if (period === "24h") return "vs 24h anteriores";
+  if (period === "24h") return "vs ontem";
   if (period === "7d") return "vs 7 dias anteriores";
   return "vs 30 dias anteriores";
 }

@@ -14,8 +14,8 @@ const pkg = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.ur
 
 const checks=[];
 const check=(cond,label)=>{ if(!cond) throw new Error(`FAIL: ${label}`); checks.push(label); };
-check(pkg.version==='5.8.8','versão frontend 5.8.8');
-check(mod.getComparisonLabel('24h')==='vs 24h anteriores','rótulo 24h transparente');
+check(pkg.version==='5.8.9','versão frontend 5.8.9');
+check(mod.getComparisonLabel('24h')==='vs ontem','rótulo 24h hoje vs ontem');
 check(mod.getComparisonLabel('7d')==='vs 7 dias anteriores','rótulo 7d transparente');
 check(mod.getComparisonLabel('30d')==='vs 30 dias anteriores','rótulo 30d transparente');
 check(mod.percentageChange(10,2,5)===null,'base anterior abaixo de 5 é rejeitada');

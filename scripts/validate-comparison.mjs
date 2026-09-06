@@ -6,7 +6,7 @@ const source=fs.readFileSync(new URL('../src/utils/comparison.ts',import.meta.ur
 const compiled=ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext,verbatimModuleSyntax:false},fileName:'comparison.ts'}).outputText;
 const mod=await import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`);
 const failures=[]; const check=(c,m)=>{if(!c)failures.push(m)};
-check(mod.getComparisonLabel('24h')==='vs 24h anteriores','24h deve mostrar vs 24h anteriores');
+check(mod.getComparisonLabel('24h')==='vs ontem','24h deve mostrar vs ontem');
 check(mod.getComparisonLabel('7d')==='vs 7 dias anteriores','7d deve mostrar vs 7 dias anteriores');
 check(mod.getComparisonLabel('30d')==='vs 30 dias anteriores','30d deve mostrar vs 30 dias anteriores');
 check(Math.abs(mod.percentageChange(110,100)-10)<1e-9,'percentual +10% incorreto');

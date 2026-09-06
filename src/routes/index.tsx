@@ -380,6 +380,11 @@ function OverviewPage() {
       ? shoppingData.comparison ?? null
       : null;
   const comparisonLabel = getComparisonLabel(historyPeriod);
+  const comparisonWindowDescription = historyPeriod === "24h"
+    ? "hoje até o horário atual contra ontem até o mesmo horário"
+    : historyPeriod === "7d"
+      ? "últimos 7 dias contra os 7 dias anteriores"
+      : "últimos 30 dias contra os 30 dias anteriores";
   const minimumCoveragePct = 70;
   const minimumOperationalSamples = 6;
   const coverageOk =
@@ -434,7 +439,7 @@ function OverviewPage() {
   const portfolioHealth = makePortfolioHealth(portfolio.shoppings);
 
   return (
-    <><style data-ancar-overview-layout="5.2">{OVERVIEW_LAYOUT_V45_CSS}</style><div className="overview-dashboard space-y-4" data-ancar-ui-version="5.8.8">
+    <><style data-ancar-overview-layout="5.2">{OVERVIEW_LAYOUT_V45_CSS}</style><div className="overview-dashboard space-y-4" data-ancar-ui-version="5.8.9">
       {error && (
         <div className="overview-error rounded-lg border border-[color-mix(in_oklab,var(--accent-yellow)_38%,transparent)] bg-[color-mix(in_oklab,var(--accent-yellow)_8%,transparent)] px-3 py-2 text-xs text-[var(--accent-yellow)]">
           {error}
@@ -450,7 +455,7 @@ function OverviewPage() {
           accent="cyan"
           comparisonValue={kwComparison}
           comparisonLabel={operatingComparisonLabel}
-          comparisonDescription="Potência média da CAG somente durante operação normal, comparada ao período anterior equivalente. Exclui desligado, carga/descarga de tanque e valores acima de 1500 kW."
+          comparisonDescription={`Potência média da CAG somente durante operação normal: ${comparisonWindowDescription}. Exclui desligado, carga/descarga de tanque e valores acima de 1500 kW.`}
         />
         <KpiCard
           icon={Activity}
@@ -460,7 +465,7 @@ function OverviewPage() {
           accent="blue"
           comparisonValue={trComparison}
           comparisonLabel={operatingComparisonLabel}
-          comparisonDescription="Produção térmica média válida durante operação normal, comparada ao período anterior equivalente."
+          comparisonDescription={`Produção térmica média válida durante operação normal: ${comparisonWindowDescription}.`}
         />
         <KpiCard
           icon={Gauge}
@@ -471,7 +476,7 @@ function OverviewPage() {
           comparisonValue={kwTrComparison}
           comparisonLabel={efficiencyComparisonLabel}
           comparisonTone="lower-better"
-          comparisonDescription="Eficiência consolidada do período calculada por energia elétrica válida ÷ TRh válido. Exclui carga/descarga do tanque, desligado e kW/TR acima de 4."
+          comparisonDescription={`Eficiência consolidada calculada por energia elétrica válida ÷ TRh válido; comparação de ${comparisonWindowDescription}. Exclui carga/descarga do tanque, desligado e kW/TR acima de 4.`}
         />
         <KpiCard
           icon={Activity}
@@ -481,7 +486,7 @@ function OverviewPage() {
           comparisonValue={activeComparison}
           comparisonLabel={utilizationComparisonLabel}
           comparisonUnit="p.p."
-          comparisonDescription="Variação em pontos percentuais da utilização média dos chillers no período selecionado contra o período anterior equivalente."
+          comparisonDescription={`Variação em pontos percentuais da utilização média dos chillers: ${comparisonWindowDescription}.`}
         />
         <KpiCard
           icon={Fan}
@@ -491,7 +496,7 @@ function OverviewPage() {
           accent="yellow"
           comparisonValue={auxComparison}
           comparisonLabel={operatingComparisonLabel}
-          comparisonDescription="Potência média dos periféricos somente durante operação normal da CAG, comparada ao período anterior equivalente. Exclui valores acima de 1500 kW."
+          comparisonDescription={`Potência média dos periféricos somente durante operação normal da CAG: ${comparisonWindowDescription}. Exclui valores acima de 1500 kW.`}
         />
         <KpiCard
           icon={Thermometer}
@@ -502,7 +507,7 @@ function OverviewPage() {
           comparisonValue={temperatureComparison}
           comparisonLabel={averageComparisonLabel}
           comparisonUnit="°C"
-          comparisonDescription="Diferença absoluta entre a temperatura externa média do período selecionado e a média do período anterior equivalente."
+          comparisonDescription={`Diferença absoluta da temperatura externa média: ${comparisonWindowDescription}.`}
         />
       </div>
 

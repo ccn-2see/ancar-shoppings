@@ -5,7 +5,7 @@ const css = fs.readFileSync('src/styles.css', 'utf8');
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 
 const checks = [
-  [pkg.version === '5.8.8', 'versão 5.8.8'],
+  [pkg.version === '5.8.9', 'versão 5.8.9'],
   [esg.includes('O que isso representa?'), 'faixa de equivalências didáticas'],
   [esg.includes('de carro a gasolina'), 'equivalência em km de carro'],
   [esg.includes('de gasolina queimados'), 'equivalência em litros de gasolina'],
@@ -21,8 +21,8 @@ const checks = [
   [esg.includes('GASOLINE_KG_CO2_PER_LITER = 2.31'), 'constante de equivalência gasolina centralizada'],
   [esg.includes('CAR_KG_CO2_PER_KM = 0.232'), 'constante de equivalência automóvel centralizada'],
   [esg.includes('TREE_KG_CO2_PER_YEAR = 22'), 'constante de equivalência árvore-ano centralizada'],
-  [css.includes('.compact-esg-page .esg-dashboard-grid'), 'grid principal ESG V5.8.8'],
-  [css.includes('.compact-esg-page .esg-equivalence-grid'), 'grid de equivalências ESG V5.8.8'],
+  [css.includes('.compact-esg-page .esg-dashboard-grid'), 'grid principal ESG V5.8.9'],
+  [css.includes('.compact-esg-page .esg-equivalence-grid'), 'grid de equivalências ESG V5.8.9'],
 ];
 
 let passed = 0;
@@ -35,4 +35,4 @@ for (const [ok, label] of checks) {
     passed += 1;
   }
 }
-if (!process.exitCode) console.log(`VALIDAÇÃO CONCEITO ENERGIA & CARBONO V5.8.8: ${passed}/${checks.length} PASS`);
+if (!process.exitCode) console.log(`VALIDAÇÃO CONCEITO ENERGIA & CARBONO V5.8.9: ${passed}/${checks.length} PASS`);
