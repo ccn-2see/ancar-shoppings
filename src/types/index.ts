@@ -43,6 +43,8 @@ export interface Shopping {
   costPerTrhTodayBrl: number | null;
   balanceDeviationPct: number | null;
   peripheralsPct: number | null;
+  thermalStorageAvailable?: boolean;
+  systemOperatingMode?: string | null;
 }
 
 export interface RankingItem {

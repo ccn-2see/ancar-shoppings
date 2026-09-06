@@ -12,6 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { formatBRL2, formatKwTr, formatNumber, formatRelative } from "@/utils/format";
 import { useDashboardRuntime } from "@/contexts/dashboard-runtime-context";
 import { getShoppingPerformanceState } from "@/utils/shopping-performance";
+import { getThermalStorageDisplayState } from "@/utils/thermal-storage-display";
 
 export const Route = createFileRoute("/shoppings")({
   head: () => ({ meta: [{ title: "Shoppings" }, { name: "description", content: "Portfólio de shoppings monitorados." }] }),
@@ -81,9 +82,9 @@ function ShoppingsPage() {
       <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">{filtered.map((shopping) => <ShoppingCard key={shopping.id} shopping={shopping}/>)}</div> :
       <div className="panel data-table-shell overflow-x-auto"><Table><TableHeader><TableRow>
         <TableHead>Shopping</TableHead><TableHead>Localização</TableHead><TableHead>Status</TableHead><TableHead className="text-right">Potência</TableHead><TableHead className="text-right">kW/TR</TableHead><TableHead className="text-right">Vs meta</TableHead><TableHead className="text-right">Custo acima meta</TableHead><TableHead className="text-right">Cobertura</TableHead><TableHead className="text-right">Atualização</TableHead>
-      </TableRow></TableHeader><TableBody>{filtered.map((shopping) => { const performance = getShoppingPerformanceState(shopping); return <TableRow key={shopping.id}>
+      </TableRow></TableHeader><TableBody>{filtered.map((shopping) => { const performance = getShoppingPerformanceState(shopping); const storageState = getThermalStorageDisplayState(shopping); return <TableRow key={shopping.id}>
         <TableCell><Link to="/shoppings/$shoppingId" params={{shoppingId:shopping.id}} className="flex items-center gap-2 font-medium hover:text-[var(--accent-cyan)]"><span className="rounded-md bg-muted/60 px-1.5 py-0.5 text-[10px] font-semibold">{shopping.code}</span>{shopping.name}</Link></TableCell>
-        <TableCell className="text-muted-foreground">{shopping.city}/{shopping.stateCode}</TableCell><TableCell><StatusBadge status={performance.status} label={performance.label} dotColor={performance.dotColor}/></TableCell>
+        <TableCell className="text-muted-foreground">{shopping.city}/{shopping.stateCode}</TableCell><TableCell>{storageState ? <span className="inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-[11px] font-medium" style={{color:storageState.color,background:storageState.background,borderColor:storageState.border}}><span className="inline-block h-2 w-2 rounded-full" style={{backgroundColor:storageState.color}} />{storageState.label}</span> : <StatusBadge status={performance.status} label={performance.label} dotColor={performance.dotColor}/>}</TableCell>
         <TableCell className="metric-value text-right">{num(shopping.powerKW,1)} kW</TableCell><TableCell className="metric-value text-right" style={{color:performance.deviationColor}}>{performance.unavailableReason === "missing_target" ? formatKwTr(shopping.efficiencyKWTR) : performance.status === "offline" ? "—" : formatKwTr(shopping.efficiencyKWTR)}</TableCell><TableCell className="text-right text-xs font-semibold" style={{color:performance.deviationColor}}>{performance.status === "offline" ? performance.label : performance.deviationText}</TableCell><TableCell className="metric-value text-right">{formatBRL2(shopping.costAboveTargetTodayBrl)}</TableCell><TableCell className="text-right">{shopping.dataAvailability.coveragePct}%</TableCell><TableCell className="text-right text-xs text-muted-foreground">{shopping.status === "offline" ? "—" : formatRelative(shopping.lastUpdate)}</TableCell>
       </TableRow>})}</TableBody></Table></div>}
     </div>

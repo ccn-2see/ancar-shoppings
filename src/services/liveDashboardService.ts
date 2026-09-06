@@ -220,6 +220,8 @@ export function mapLiveShoppingToLegacy(item: LiveShoppingSummary): Shopping {
     costPerTrhTodayBrl: asNumber(item.today?.costPerTrhBrl),
     balanceDeviationPct: asNumber(kpis.desvio_balanco_pct),
     peripheralsPct: asNumber(kpis.auxiliares_pct_kw_cag),
+    thermalStorageAvailable: item.thermalStorage?.available === true || kpis.tanque_agua_gelada_disponivel === true,
+    systemOperatingMode: String(item.thermalStorage?.systemOperatingMode ?? kpis.sistema_modo_operacional ?? "") || null,
   };
 }
 

@@ -198,6 +198,24 @@ export interface TodaySummary {
   costPerTrhBrl?: number | null;
 }
 
+
+export interface ThermalStorageSummary {
+  available?: boolean;
+  charging?: boolean | null;
+  discharging?: boolean | null;
+  mode?: string | null;
+  stateValid?: boolean | null;
+  systemOperatingMode?: string | null;
+  chargingHoursToday?: number | null;
+  dischargingHoursToday?: number | null;
+  idleHoursToday?: number | null;
+  normalOperationHoursToday?: number | null;
+  offHoursToday?: number | null;
+  invalidHoursToday?: number | null;
+  validHoursToday?: number | null;
+  semantics?: string | null;
+}
+
 export interface LiveShoppingSummary {
   id: string;
   code: string;
@@ -210,6 +228,7 @@ export interface LiveShoppingSummary {
   settings: ShoppingSettings;
   today?: TodaySummary;
   latest: LiveLatest | null;
+  thermalStorage?: ThermalStorageSummary | null;
 }
 
 export interface PortfolioApiResponse {

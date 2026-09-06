@@ -1,0 +1,20 @@
+import fs from 'node:fs';
+const card=fs.readFileSync('src/components/ShoppingCard.tsx','utf8');
+const shoppings=fs.readFileSync('src/routes/shoppings.tsx','utf8');
+const svc=fs.readFileSync('src/services/liveDashboardService.ts','utf8');
+const types=fs.readFileSync('src/types/index.ts','utf8');
+const util=fs.readFileSync('src/utils/thermal-storage-display.ts','utf8');
+const errors=[]; const check=(v,m)=>{if(!v)errors.push(m)};
+check(util.includes('tank_charging')&&util.includes('label: "Carregando"'),'Carregando não mapeado');
+check(util.includes('tank_discharging')&&util.includes('label: "Descarregando"'),'Descarregando não mapeado');
+check(util.includes('var(--accent-blue)'),'Carregando deve usar azul');
+check(util.includes('var(--accent-purple)'),'Descarregando deve usar roxo');
+check(card.includes('storageState ?? statusTheme[performance.status]'),'ShoppingCard não prioriza status do tanque');
+check(card.includes('statusLabel = storageState?.label ?? performance.label'),'ShoppingCard não troca o texto do botão');
+check(card.includes('statusDotColor = storageState?.color ?? performance.dotColor'),'ShoppingCard não troca a bolinha durante carga/descarga');
+check(shoppings.includes('getThermalStorageDisplayState(shopping)'),'Aba Shoppings não usa status do tanque');
+check(shoppings.includes('storageState.label'),'Tabela de Shoppings não exibe status do tanque');
+check(svc.includes('item.thermalStorage?.systemOperatingMode'),'Serviço não mapeia modo operacional da API');
+check(types.includes('systemOperatingMode?: string | null'),'Shopping não expõe modo operacional');
+if(errors.length){console.error(errors.join('\n'));process.exit(1)}
+console.log('VALIDAÇÃO THERMAL STORAGE STATUS V5.8.7: 11/11 PASS');

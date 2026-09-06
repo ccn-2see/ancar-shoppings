@@ -19,11 +19,11 @@ assert(service.includes('kpis.alert_flags?.powerStatusMismatch === true'), 'Stat
 assert(service.includes('Potência detectada com chiller desligado'), 'Alerta visual potência x status ausente.');
 assert(service.includes('Periféricos/BAGPS'), 'Descrição do alerta não contempla BAGPS/Periféricos.');
 assert(service.includes('equipamentos explicitamente OFF não entram nos KPIs operacionais'), 'Recomendação operacional do alerta ausente.');
-assert(pkg.version === '5.8.6', `Versão esperada 5.8.6; encontrada ${pkg.version}.`);
-assert(rootRoute.includes('content: "5.8.6"') && rootRoute.includes('ancar-ui=5.8.6'), 'Cache bust/meta da V5.8.6 ausente.');
+assert(pkg.version === '5.8.7', `Versão esperada 5.8.7; encontrada ${pkg.version}.`);
+assert(rootRoute.includes('content: "5.8.7"') && rootRoute.includes('ancar-ui=5.8.7'), 'Cache bust/meta da V5.8.7 ausente.');
 
 if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-console.log('VALIDAÇÃO NSM + STATUS/POWER FRONTEND V5.8.6: 9/9 PASS');
+console.log('VALIDAÇÃO NSM + STATUS/POWER FRONTEND V5.8.7: 9/9 PASS');
